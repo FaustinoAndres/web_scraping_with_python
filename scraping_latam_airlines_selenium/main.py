@@ -12,8 +12,7 @@ if __name__ == "__main__":
     #options.add_argument("headless")
     options.add_argument('--InPrivate')
 
-
     #driver = webdriver.Edge(executable_path=PATH)
     driver = webdriver.Edge(executable_path=PATH, options = options)
-
+    driver.get(url)
     driver.close()
