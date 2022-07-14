@@ -1,5 +1,6 @@
 import requests
 from decouple import config
+import base64
 
 
 if __name__ == '__main__':
@@ -10,7 +11,18 @@ if __name__ == '__main__':
 
 	client_str = f'{config("Client_ID")}:{config("Client_Secret")}'
 
-	r = requests.get(url_muse)
+	client_encode = base64.b64encode(client_str.encode("utf-8"))  # Codificado en Bytes
+	client_encode = str(client_encode, "utf-8")  # Codificado en String
+
+	token_url = 'https://accounts.spotify.com/api/token'
+	params = {'grant_type': 'client_credentials'}
+	headers= {'Authorization' : f'Basic {client_encode}'}
+
+	r = requests.post(token_url, data=params, headers=headers)
 	print(r.status_code)
 	print(r.json())
-	print(client_str)
+
+	token = r.json()['access_token']
+
+
+	
