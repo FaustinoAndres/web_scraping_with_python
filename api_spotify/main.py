@@ -24,5 +24,11 @@ if __name__ == '__main__':
 
 	token = r.json()['access_token']
 
+	#get muse info
 
-	
+	header_muse = {'Authorization': f'Bearer {token}'}
+
+	r_muse = requests.get(url_muse, headers=header_muse)
+	print(r_muse.status_code)
+	print(r_muse.json())
+
